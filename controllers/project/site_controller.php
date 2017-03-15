@@ -1,5 +1,5 @@
 <?php
-	class UserController 
+	class SiteController 
 	{
 		
 		/* TABLE ATTRIBUTES */
@@ -9,25 +9,26 @@
 			{
 				case "index":
 					$attributes = array(
-						"username" => "Username",
-						"fullname" => "Full Name",
-						"email"    => "Email",
+						"name"      => "Name",
+						"address"   => "Address",
+						"email"     => "Email",
+						"telephone" => "Telephone",
 						);
 					break;
 				
 				case "create":
 					$attributes = array(
-						"username",
-						"fullname",
+						"name",
+						"address",
 						"email",
-						"password",
+						"telephone",
 						);
 					break;
 			}
 			
 			return $attributes;
 		}
-	
+		
 		public function index() 
 		{
 			// Login required
@@ -35,10 +36,10 @@
 				echo "Access denied";
 				exit();
 			}
-
+			
 			/* CRUD VIEWS */
-			$title = "Manage Users";
-			$controller_type = "core";
+			$title = "Manage Sites";
+			$controller_type = "project";
 			
 			require_once('views/crud/header.php');
 			require_once('views/crud/read.php');
@@ -47,16 +48,16 @@
 			$create_attributes = array
 			  (
 			  array(
-			    "name"       => "username", 
-				"text"       => "Username",
+			    "name"       => "name", 
+				"text"       => "Name",
 				"type"       => "input", 
-				"data-error" => "Please enter the username.", 
+				"data-error" => "Please enter the site's name.", 
 				"required"   => "required"),
 			  array(
-				"name"       => "fullname", 
-				"text"       => "Full Name",
-				"type"       => "input", 
-				"data-error" => "Please enter the full name.", 
+				"name"       => "address", 
+				"text"       => "Address",
+				"type"       => "textarea", 
+				"data-error" => "Please enter the address.", 
 				"required"   => "required"),
 			  array(
 				"name"	     => "email", 
@@ -65,10 +66,10 @@
 				"data-error" => "Please enter an email address", 
 				"required"   => "required"),
 			  array(
-				"name"	     => "password", 
-				"text"       => "Password",
-				"type" 	     => "password", 
-				"data-error" => "Please enter the user passworrd", 
+				"name"	     => "telephone", 
+				"text"       => "Contact",
+				"type" 	     => "text", 
+				"data-error" => "Please enter the telephone number", 
 				"required"   => "required")
 			  );
 			  
@@ -78,16 +79,16 @@
 			$edit_attributes = array
 			  (
 			  array(
-			    "name"       => "username", 
-				"text"       => "Username",
+			    "name"       => "name", 
+				"text"       => "Name",
 				"type"       => "input", 
-				"data-error" => "Please enter the username.", 
+				"data-error" => "Please enter the site's name.", 
 				"required"   => "required"),
 			  array(
-				"name"       => "fullname", 
-				"text"       => "Full Name",
-				"type"       => "input", 
-				"data-error" => "Please enter the full name.", 
+				"name"       => "address", 
+				"text"       => "Address",
+				"type"       => "textarea", 
+				"data-error" => "Please enter the address.", 
 				"required"   => "required"),
 			  array(
 				"name"	     => "email", 
@@ -95,11 +96,38 @@
 				"type" 	     => "input", 
 				"data-error" => "Please enter an email address", 
 				"required"   => "required"),
+			  array(
+				"name"	     => "telephone", 
+				"text"       => "Contact",
+				"type" 	     => "text", 
+				"data-error" => "Please enter the telephone number", 
+				"required"   => "required")
 			  );
 			
 			require_once('views/crud/update.php');
 			require_once('views/crud/footer.php');
 
 		}
+	
+		/*
+		public function index() 
+		{
+			$clients = Client::all();
+			require_once('views/project/client/index.php');
+		}
+		
+		public function show() 
+		{
+			
+			if (!isset($_GET['id'])) {
+				return call('pages', 'error');
+			}
+
+			$client = User::find($_GET['id']);
+			require_once('views/project/client/show.php');
+			
+		}
+		
+		*/
 	}
 ?>

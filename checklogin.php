@@ -1,14 +1,11 @@
 <?php
-	// Start session
-	session_start();
-	
 	// Show errors for debugging mode, set to zero for release mode
 	ini_set('display_errors', 1);
 	ini_set('display_startup_errors', 1);
 	error_reporting(E_ALL);
 	
 	// Require DB connection
-	require_once('connection.php');
+	require_once('models/db.php');
 	require_once('core/session.php');
 
 	if(isset($_POST['btn-login']))
@@ -20,7 +17,7 @@
 
 		try
 		{ 
-			$db = Db::getInstance();
+			$db = db::getInstance();
 			$req = $db->prepare('SELECT * FROM users WHERE email = :email');
 			$req->execute(array(":email"=>$user_email));
 			$row = $req->fetch();
@@ -32,12 +29,12 @@
 				echo '1'; 
 				
 				// Set session
-				$_SESSION['dfm_auth'] = $row['userID'].":".$password;
+				$_SESSION['dfm_auth'] = $row['id'].":".$password;
 				$_SESSION['lastlogin'] = $row['last_login'];
 				$_SESSION['referer'] = $_SERVER['HTTP_REFERER'];
 
 				// Set cookie
-				setcookie("dfm_auth", $row['userID'].":".$password, time()+(Session::session_duration()*60*60));	
+				setcookie("dfm_auth", $row['id'].":".$password, time()+(Session::session_duration()*60*60));	
 
 			}
 			

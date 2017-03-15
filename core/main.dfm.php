@@ -4,32 +4,51 @@ class dfm {
 	var $version;
 	var $release_date;
 	var $build;
+	var $app_dir;
 	
 	// DFM MVC WITH LOGIN VERSION
 	public function __construct(){
 		$this->version = 1.0;
 		$this->build = "0.1.0";
 		$this->release_date = "";
+		$this->app_dir = $_SERVER['DOCUMENT_ROOT'] . "/dfm/tcs_project/";
 	}
 	
 	// Include model classes
-	public static function inc_model($file) 
+	public static function inc_model($file, $dir = "") 
 	{	
 		$file_location = "models/" . strtolower($file) . ".php";
+		
+
+		/* $non_models array
+		 * Key = filename & Value = Routing directory 
+		 * if including non model classes 
+		*/
+		$non_models = array("Request" => "controllers");
+		
+		if( in_array($file, array_keys($non_models)) )
+		{
+			if( !require_once( $dir . $non_models[$file] . "/" . strtolower($file) . ".php" )) {
+				self::system_error( $dir . $non_models[$file] . "/" . strtolower($file) . ".php" . ' does not exist');
+			}
+		}
 	
-		if( !require_once( $file_location )) {
-			self::system_error($file_location . ' does not exist');
+		else if( !require_once( $dir . $file_location )) {
+			self::system_error( $dir . $file_location . ' does not exist');
 		}
 	}
-	
-	// Include core classes
-	public static function inc_core($file) 
-	{	
-		$file_location = "core/" . strtolower($file) . ".php";
-	
-		if( !require_once( $file_location )) {
-			self::system_error($file_location . ' does not exist');
-		}
+
+	// Page title
+	public static function page_title() 
+	{
+		$page = Request::get('controller', Request::TYPE_ALNUM);
+		$action = Request::get('action', Request::TYPE_ALNUM);
+
+		$action = ( !empty($action) && $action != "index" ) ? $action : null;
+        $title = str_replace("_", " ", ( !empty($page) ) ? $page : "home");
+        $title =  ucwords(strtolower($title));  
+		
+		return $action ? $title .' '.ucwords(strtolower($action)) : $title;			
 	}
 	
 	// Redirect 

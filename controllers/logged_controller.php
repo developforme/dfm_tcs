@@ -4,8 +4,7 @@
 		public function index() 
 		{
 
-			if(!isset($_SESSION['dfm_auth']))
-			{
+			if( empty( User::userID()) ) {
 				header("Location: index.php");
 			}
 			
