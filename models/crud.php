@@ -32,14 +32,24 @@
 
 		public function createData($post, $user = null)
 		{		
-			$keys = $this->attributes["create"];
+			// Get the keys (field names from controller's table_attributes)
+			$keys = Array();
+			
+			foreach ($this->attributes["create_attributes"] as $key => $value) {
+				array_push($keys, $value['name']);
+			}			
+			
+			// Combine the field name keys with the POST values
 			$array = array_combine($keys, $post);
 
+			// Insert SQL
 			db::insert_array($this->table, $array);
 			
+			// Fetch new results
 			$req = $this->dbh->prepare("SELECT * FROM {$this->table} Order by id desc LIMIT 1");	
 			$data   = $req->fetch(PDO::FETCH_ASSOC);
 
+			// Encode JSON for AJAX script
 			return json_encode($data);
 		}
 		
@@ -52,29 +62,27 @@
 		
 		public function updateData($id, $post, $user = null)
 		{
-			$keys = $this->attributes["update"];
+			// Get the keys (field names from controller's table_attributes)
+			$keys = Array();
+			
+			foreach ($this->attributes["update_attributes"] as $key => $value) {
+				array_push($keys, $value['name']);
+			}			
+			
+			// Primary key "id" is required in ARRAY to update specific row so we push it at the end of the array
+			array_push($keys, "id");
+			
+			// Combine the field name keys with the POST values
 			$array = array_combine($keys, $post);
-			
-			/*
-			* DEBUG 
-			$err = "";
-			
-			foreach($post as $p)
-			$err .= $p . "\r\n";
-			
-			$err .= "\r\n";
-			
-			foreach($keys as $k)
-			$err .= $k . "\r\n";
 
-			file_put_contents('error.log',$err, FILE_APPEND);  
-			*/
-			
+			// Insert SQL
 			db::update_array($id, $this->table, $array);
 					
+			// Fetch new results
 			$req = $this->dbh->prepare("SELECT * FROM {$this->table} WHERE id = {$id}");	
 			$data   = $req->fetch(PDO::FETCH_ASSOC);
 
+			// Encode JSON for AJAX script
 			return json_encode($data);	
 		}
 	}

@@ -2,27 +2,9 @@
 	class UserController 
 	{
 		
-		/* TABLE ATTRIBUTES */
-		public function table_attributes()
-		{
-			$crud_attributes = array();
-			
-			// READ
-			$crud_attributes["index"] = [
-				"username" => "Username",
-				"fullname" => "Full Name",
-				"email"    => "Email"
-			];
-			
-			// UPDATE
-			$crud_attributes["update"] = ["username", "fullname", "email", "id"];
-			
-			// CREATE
-			$crud_attributes["create"] = ["username", "fullname", "email", "password"];
-						
-			return $crud_attributes;
-		}
-	
+		var $title = "Manage Users";
+		var $controller_type = "core";
+		
 		public function index() 
 		{
 			// Login required
@@ -30,17 +12,73 @@
 				echo "Access denied";
 				exit();
 			}
-
+			
 			/* CRUD VIEWS */
-			$title = "Manage Users";
-			$controller_type = "core";
+			$title = $this->title;
+			$controller_type = $this->controller_type;
 			
 			require_once('views/crud/header.php');
 			require_once('views/crud/read.php');
 			
-			/* CREATE ATTRIBUTES */
+			/* ATTRIBUTES */
+			$create_attributes = self::table_attributes()["create_attributes"];
+			$edit_attributes = self::table_attributes()["update_attributes"];
+
+			require_once('views/crud/create.php');
+			require_once('views/crud/update.php');
+			require_once('views/crud/footer.php');
+
+		}
+		
+		/* TABLE ATTRIBUTES */
+		public function table_attributes()
+		{
+			$crud_attributes = array();
 			
-			$create_attributes = array
+			/* READ
+			 * Viewed in the main table 
+			 * @Key = field name
+			 * @Value = UI text
+			*/
+			$crud_attributes["index"] = [
+				"username" => "Username",
+				"fullname" => "Full Name",
+				"email"    => "Email"
+			];
+			
+			/* UPDATE ATTRIBUTES
+			 * Viewed when editing an existing row
+			 * @Key = field name
+			 * @Value = UI text
+			*/
+			$crud_attributes["update_attributes"] = array
+			  (
+			  array(
+			    "name"       => "username", 
+				"text"       => "Username",
+				"type"       => "input", 
+				"data-error" => "Please enter the username.", 
+				"required"   => "required"),
+			  array(
+				"name"       => "fullname", 
+				"text"       => "Full Name",
+				"type"       => "input", 
+				"data-error" => "Please enter the full name.", 
+				"required"   => "required"),
+			  array(
+				"name"	     => "email", 
+				"text"       => "Email",
+				"type" 	     => "input", 
+				"data-error" => "Please enter an email address", 
+				"required"   => "required"),
+			  );
+			
+			/* CREATE ATTRIBUTES
+			 * Viewed when creating a new row
+			 * @Key = field name
+			 * @Value = UI text
+			*/
+			$crud_attributes["create_attributes"] = array
 			  (
 			  array(
 			    "name"       => "username", 
@@ -64,38 +102,17 @@
 				"name"	     => "password", 
 				"text"       => "Password",
 				"type" 	     => "password", 
-				"data-error" => "Please enter the user passworrd", 
-				"required"   => "required")
+				"data-error" => "Please enter the user password", 
+				"required"   => "required"),
+			  array(
+				"name"	     => "join_date", 
+				"text"       => "",
+				"type" 	     => "hidden", 
+				"data-error" => "", 
+				"required"   => "")
 			  );
-			  
-			require_once('views/crud/create.php');
-			
-			/* UPDATE ATTRIBUTES */
-			$edit_attributes = array
-			  (
-			  array(
-			    "name"       => "username", 
-				"text"       => "Username",
-				"type"       => "input", 
-				"data-error" => "Please enter the username.", 
-				"required"   => "required"),
-			  array(
-				"name"       => "fullname", 
-				"text"       => "Full Name",
-				"type"       => "input", 
-				"data-error" => "Please enter the full name.", 
-				"required"   => "required"),
-			  array(
-				"name"	     => "email", 
-				"text"       => "Email",
-				"type" 	     => "input", 
-				"data-error" => "Please enter an email address", 
-				"required"   => "required"),
-			  );
-			
-			require_once('views/crud/update.php');
-			require_once('views/crud/footer.php');
-
+						
+			return $crud_attributes;
 		}
 	}
 ?>

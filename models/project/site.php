@@ -1,20 +1,8 @@
 <?php
 	class Site
 	{
-		public $name;
-		public $address;
-		public $telephone;
-		public $email;
 
-		public function __construct($name, $address, $telephone, $email) 
-		{
-			$this->name      = $name;
-			$this->address   = $address;
-			$this->telephone = $telephone;
-			$this->email     = $email;
-
-		}
-
+		/*
 		public static function all() 
 		{
 			$list = [];
@@ -36,6 +24,17 @@
 			$user = $req->fetch();
 
 			return new User($site['name'], $site['address'], $site['telephone'], $site['email']);
+		}
+		*/
+		
+		public function updateCreatePOST($post)
+		{
+			return $post;
+		}
+		
+		public function updateEditPost($post)
+		{
+			return $post;
 		}
 	}
 ?>

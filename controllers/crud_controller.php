@@ -47,7 +47,8 @@
 			
 	}
 	
-	$crud=new crud($controller_name, $table, $attributes);
+	$crud = new crud($controller_name, $table, $attributes);
+	$model = new $controller_name;
 
 	if(!isset($_GET['action'])) {
 		print json_encode(0);
@@ -62,7 +63,11 @@
 			
 		case 'create':
 			$post = $_POST;
-			print $crud->createData($post);		
+			
+			// Manipulate POST with application model
+			$newpost = $model->updateCreatePost($post);
+			
+			print $crud->createData($newpost);		
 			break;
 			
 		case 'delete':
@@ -73,7 +78,13 @@
 		case 'update':
 			$id  = $_POST["id"];
 			$post = $_POST;
-			print $crud->updateData($id, $post);				
+			
+
+			// Manipulate POST with application model
+			$newpost = $model->updateEditPost($post);
+			
+			
+			print $crud->updateData($id, $newpost);				
 			break;
 	}
 

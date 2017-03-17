@@ -38,12 +38,10 @@
 			switch($controller) 
 			{
 				case 'site':
-					require_once("models/project/site.php");
 					$controller = new SiteController();
 					break;
 					
 				case 'client':
-					require_once("models/project/client.php");
 					$controller = new ClientController();
 					break;
 			}

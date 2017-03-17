@@ -12,9 +12,11 @@
 		      			<input type="hidden" name="id" class="edit-id">
 
 						<?php
-							for($i = 0; $i < count($edit_attributes); $i++) {
-							?>
-								<div class="form-group">
+							for($i = 0; $i < count($edit_attributes); $i++) 
+							{
+								$show = $edit_attributes[$i]["type"] == 'hidden' ? 'none' : 'block';			
+						?>
+								<div class="form-group" style="display: <?php echo $show; ?>">
 									<label class="control-label" for="<?php echo $edit_attributes[$i]["name"]; ?>"><?php echo $edit_attributes[$i]["text"]; ?></label>
 									<input type="text" name="<?php echo $edit_attributes[$i]["name"]; ?>" class="form-control" data-error="<?php echo $edit_attributes[$i]["data-error"]; ?>" <?php echo $edit_attributes[$i]["required"]; ?> />
 									<div class="help-block with-errors"></div>

@@ -1,31 +1,9 @@
 <?php
 	class ClientController 
 	{
-		
-		/* TABLE ATTRIBUTES */
-		public function table_attributes( $crud = "index" )
-		{
-			
-			$crud_attributes = array();
-			
-			// READ
-			$crud_attributes["index"] = [
-				"name"      => "Name",
-				"address"   => "Address",
-				"email"     => "Email",
-				"telephone" => "Telephone"
-			];
-			
-			// UPDATE
-			$crud_attributes["update"] = ["name", "address", "email", "telephone", "id"];
-			
-			// CREATE
-			$crud_attributes["create"] = ["name", "address", "email", "telephone"];
-						
-			return $crud_attributes;
-			
-		}
-		
+		var $title = "Manage Clients";
+		var $controller_type = "project";
+
 		public function index() 
 		{
 			// Login required
@@ -35,14 +13,45 @@
 			}
 			
 			/* CRUD VIEWS */
-			$title = "Manage Clients";
-			$controller_type = "project";
+			$title = $this->title;
+			$controller_type = $this->controller_type;
 			
 			require_once('views/crud/header.php');
 			require_once('views/crud/read.php');
 			
-			/* CREATE ATTRIBUTES */
-			$create_attributes = array
+			/* ATTRIBUTES */
+			$create_attributes = self::table_attributes()["create_attributes"];
+			$edit_attributes = self::table_attributes()["update_attributes"];
+
+			require_once('views/crud/create.php');
+			require_once('views/crud/update.php');
+			require_once('views/crud/footer.php');
+
+		}
+		
+		/* TABLE ATTRIBUTES */
+		public function table_attributes()
+		{
+			$crud_attributes = array();
+			
+			/* READ
+			 * Viewed in the main table 
+			 * @Key = field name
+			 * @Value = UI text
+			*/
+			$crud_attributes["index"] = [
+				"name"      => "Name",
+				"address"   => "Address",
+				"email"     => "Email",
+				"telephone" => "Telephone"
+			];
+			
+			/* UPDATE ATTRIBUTES
+			 * Viewed when editing an existing row
+			 * @Key = field name
+			 * @Value = UI text
+			*/
+			$crud_attributes["update_attributes"] = array
 			  (
 			  array(
 			    "name"       => "name", 
@@ -70,10 +79,13 @@
 				"required"   => "required")
 			  );
 			  
-			require_once('views/crud/create.php');
-			
-			/* EDIT ATTRIBUTES */
-			$edit_attributes = array
+
+			/* CREATE ATTRIBUTES
+			 * Viewed when creating a new row
+			 * @Key = field name
+			 * @Value = UI text
+			*/
+			$crud_attributes["create_attributes"] = array
 			  (
 			  array(
 			    "name"       => "name", 
@@ -95,36 +107,14 @@
 				"required"   => "required"),
 			  array(
 				"name"	     => "telephone", 
-				"text"       => "Contact",
+				"text"       => "Telephone",
 				"type" 	     => "text", 
 				"data-error" => "Please enter the telephone number", 
 				"required"   => "required")
-			  );
+			  );	
 			
-			require_once('views/crud/update.php');
-			require_once('views/crud/footer.php');
 
+			return $crud_attributes;
 		}
-	
-		/*
-		public function index() 
-		{
-			$clients = Client::all();
-			require_once('views/project/client/index.php');
-		}
-		
-		public function show() 
-		{
-			
-			if (!isset($_GET['id'])) {
-				return call('pages', 'error');
-			}
-
-			$client = User::find($_GET['id']);
-			require_once('views/project/client/show.php');
-			
-		}
-		
-		*/
 	}
 ?>

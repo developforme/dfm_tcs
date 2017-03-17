@@ -17,9 +17,9 @@ class dfm {
 	// Include model classes
 	public static function inc_model($file, $dir = "") 
 	{	
-		$file_location = "models/" . strtolower($file) . ".php";
+		$pa = self::project_application($file, $dir);
+		$file_location = "models/" . $pa . strtolower($file) . ".php";
 		
-
 		/* $non_models array
 		 * Key = filename & Value = Routing directory 
 		 * if including non model classes 
@@ -33,9 +33,22 @@ class dfm {
 			}
 		}
 	
-		else if( !require_once( $dir . $file_location )) {
-			self::system_error( $dir . $file_location . ' does not exist');
+		else {
+			
+			//echo "fn = ".$dir . $pa . $file_location;
+			
+			if( !require_once( $dir . $file_location )) {
+			
+				self::system_error( $dir . $file_location . ' does not exist');
+			}
 		}
+	}
+	
+	public static function project_application( $file, $dir )
+	{
+		
+		$project_files = scandir( $dir . "models/project" );
+		return in_array( strtolower($file) . ".php", $project_files ) ? 'project/' : '';
 	}
 
 	// Page title

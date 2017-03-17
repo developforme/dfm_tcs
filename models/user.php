@@ -43,6 +43,20 @@
 			
 			return $user;
 		}
+		
+		public function updateCreatePOST($post)
+		{
+			
+			$post["password"] = md5($post['password']);
+			$post["join_date"] = time();
+			
+			return $post;
+		}
+		
+		public function updateEditPost($post)
+		{
+			return $post;
+		}
 	}
 ?>
 	
