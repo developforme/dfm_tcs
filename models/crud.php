@@ -50,7 +50,6 @@
 			return json_encode([$id]);
 		}
 		
-		/* temporary solution to be changed */
 		public function updateData($id, $post, $user = null)
 		{
 			$keys = $this->attributes["update"];
@@ -76,8 +75,7 @@
 			$req = $this->dbh->prepare("SELECT * FROM {$this->table} WHERE id = {$id}");	
 			$data   = $req->fetch(PDO::FETCH_ASSOC);
 
-			return json_encode($data);
-							
+			return json_encode($data);	
 		}
 	}
 ?>
