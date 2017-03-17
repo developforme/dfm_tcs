@@ -1,3 +1,5 @@
+
+<!--
 		<div class="panel panel-primary">
 			  <div class="panel-heading">Manage Users</div>
 			  <div class="panel-body">
@@ -20,7 +22,6 @@
 			  </div>
 	  </div>
 
-<!--
 	<div class="table-responsive">          
 		<table class="table">
 			<thead>

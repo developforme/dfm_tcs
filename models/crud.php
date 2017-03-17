@@ -21,7 +21,7 @@
 			if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; };
 			$start_from = ($page-1) * $this->num_rec_per_page;
 
-			$req = $this->dbh->prepare("SELECT id, " . implode(", ", array_keys( $this->attributes ) ) . " FROM {$this->table} ORDER BY id DESC LIMIT {$start_from}, {$this->num_rec_per_page}");
+			$req = $this->dbh->prepare("SELECT id, " . implode(", ", array_keys( $this->attributes["index"] ) ) . " FROM {$this->table} ORDER BY id DESC LIMIT {$start_from}, {$this->num_rec_per_page}");
 			$req->execute();
 			
 			$data['data'] = $req->fetchAll(PDO::FETCH_ASSOC);
@@ -30,30 +30,12 @@
 			return json_encode($data);		
 		}
 
-		/* temporary solution to be changed */
 		public function createData($post, $user = null)
 		{		
-			if($user != null)
-			{
-				$arr = array(
-						"username" => $post['username'],
-						"fullname" => $post['fullname'],
-						"email"    => $post['email'],
-						"password" => md5($post['password'])
-					   );
-			
-			}
-			else{
-		
-				$arr = array(
-						"name"      => $post['name'],
-						"address"   => $post['address'],
-						"telephone" => $post['telephone'],
-						"email"     => $post['email']
-					   );
-			}
-				   
-			db::insert_array($this->table, $arr);
+			$keys = $this->attributes["create"];
+			$array = array_combine($keys, $post);
+
+			db::insert_array($this->table, $array);
 			
 			$req = $this->dbh->prepare("SELECT * FROM {$this->table} Order by id desc LIMIT 1");	
 			$data   = $req->fetch(PDO::FETCH_ASSOC);
@@ -61,7 +43,6 @@
 			return json_encode($data);
 		}
 		
-
 		public function deleteData($id)
 		{				
 			$sth = $this->dbh->prepare("DELETE FROM {$this->table} WHERE id = {$id}");
@@ -72,34 +53,31 @@
 		/* temporary solution to be changed */
 		public function updateData($id, $post, $user = null)
 		{
+			$keys = $this->attributes["update"];
+			$array = array_combine($keys, $post);
 			
-			if($user != null)
-			{
-				$update_sql = "
-					username = '{$post['username']}',
-					fullname = '{$post['fullname']}',
-					email =    '{$post['email']}'
-					";
-			}
-			else{
+			/*
+			* DEBUG 
+			$err = "";
 			
-				$update_sql = "
-					name =      '{$post['name']}',
-					address =   '{$post['address']}',
-					telephone = '{$post['telephone']}',
-					email =     '{$post['email']}'
-					";			
-			}
+			foreach($post as $p)
+			$err .= $p . "\r\n";
 			
-			$sth = $this->dbh->prepare("UPDATE {$this->table} SET {$update_sql} WHERE id = {$id}");
-			$sth->execute();
-						
+			$err .= "\r\n";
+			
+			foreach($keys as $k)
+			$err .= $k . "\r\n";
+
+			file_put_contents('error.log',$err, FILE_APPEND);  
+			*/
+			
+			db::update_array($id, $this->table, $array);
+					
 			$req = $this->dbh->prepare("SELECT * FROM {$this->table} WHERE id = {$id}");	
 			$data   = $req->fetch(PDO::FETCH_ASSOC);
 
 			return json_encode($data);
 							
 		}
-		
 	}
 ?>

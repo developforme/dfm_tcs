@@ -9,7 +9,6 @@
 			
 			switch($controller) 
 			{
-				/* Core */
 				case 'pages':
 					$controller = new PagesController();
 					break;		

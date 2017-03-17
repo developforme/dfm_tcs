@@ -3,29 +3,24 @@
 	{
 		
 		/* TABLE ATTRIBUTES */
-		public function table_attributes( $crud = "index" )
+		public function table_attributes()
 		{
-			switch( $crud )
-			{
-				case "index":
-					$attributes = array(
-						"username" => "Username",
-						"fullname" => "Full Name",
-						"email"    => "Email",
-						);
-					break;
-				
-				case "create":
-					$attributes = array(
-						"username",
-						"fullname",
-						"email",
-						"password",
-						);
-					break;
-			}
+			$crud_attributes = array();
 			
-			return $attributes;
+			// READ
+			$crud_attributes["index"] = [
+				"username" => "Username",
+				"fullname" => "Full Name",
+				"email"    => "Email"
+			];
+			
+			// UPDATE
+			$crud_attributes["update"] = ["username", "fullname", "email", "id"];
+			
+			// CREATE
+			$crud_attributes["create"] = ["username", "fullname", "email", "password"];
+						
+			return $crud_attributes;
 		}
 	
 		public function index() 
@@ -44,6 +39,7 @@
 			require_once('views/crud/read.php');
 			
 			/* CREATE ATTRIBUTES */
+			
 			$create_attributes = array
 			  (
 			  array(
@@ -74,7 +70,7 @@
 			  
 			require_once('views/crud/create.php');
 			
-			/* EDIT ATTRIBUTES */
+			/* UPDATE ATTRIBUTES */
 			$edit_attributes = array
 			  (
 			  array(

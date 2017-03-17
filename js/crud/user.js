@@ -56,7 +56,7 @@ $( document ).ready(function() {
 		$.each( data, function( key, value ) {
 			rows = rows + '<tr>';
 			
-			$.each(data[1], function( key2, value2 ) {
+			$.each(data[0], function( key2, value2 ) {
 				if(key2 != "id")
 				rows = rows + '<td>'+value[key2]+'</td>';
 			});

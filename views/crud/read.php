@@ -5,7 +5,7 @@
 					<thead>
 					    <tr>
 						
-						<?php foreach($this->table_attributes("index") as $att) { ?>
+						<?php foreach($this->table_attributes()["index"] as $att) { ?>
 							<th><?php echo $att; ?></th>
 						<?php } ?>
 						

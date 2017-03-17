@@ -18,9 +18,6 @@
 	
 	require_once('../controllers/' . $project_controller . $controller_name . '_controller.php');
 	
-	// Temporary solution to be changed
-	$is_user_crud = $controller_name == "user" ? true : null;
-	
 	// Attributes
 	$attributes = array();
 	
@@ -65,7 +62,7 @@
 			
 		case 'create':
 			$post = $_POST;
-			print $crud->createData($post, $is_user_crud);		
+			print $crud->createData($post);		
 			break;
 			
 		case 'delete':
@@ -76,7 +73,7 @@
 		case 'update':
 			$id  = $_POST["id"];
 			$post = $_POST;
-			print $crud->updateData($id, $post, $is_user_crud);				
+			print $crud->updateData($id, $post);				
 			break;
 	}
 

@@ -5,28 +5,25 @@
 		/* TABLE ATTRIBUTES */
 		public function table_attributes( $crud = "index" )
 		{
-			switch( $crud )
-			{
-				case "index":
-					$attributes = array(
-						"name"      => "Name",
-						"address"   => "Address",
-						"email"     => "Email",
-						"telephone" => "Telephone",
-						);
-					break;
-				
-				case "create":
-					$attributes = array(
-						"name",
-						"address",
-						"email",
-						"telephone",
-						);
-					break;
-			}
 			
-			return $attributes;
+			$crud_attributes = array();
+			
+			// READ
+			$crud_attributes["index"] = [
+				"name"      => "Name",
+				"address"   => "Address",
+				"email"     => "Email",
+				"telephone" => "Telephone"
+			];
+			
+			// UPDATE
+			$crud_attributes["update"] = ["name", "address", "email", "telephone", "id"];
+			
+			// CREATE
+			$crud_attributes["create"] = ["name", "address", "email", "telephone"];
+						
+			return $crud_attributes;
+			
 		}
 		
 		public function index() 

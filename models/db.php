@@ -28,6 +28,42 @@
 				return $err->getMessage();
 			}
 		}
+		
+		public static function update_array($id, $table, $data, $exclude = array())
+		{
+			$fields = array();
+			
+			if( !is_array($exclude) ) $exclude = array($exclude);
+
+			foreach($data as $field => $val) 
+			{
+				if( !in_array($field, $exclude) ) {
+					$fields[] = "{$field} = '{$val}'";
+				}
+			}
+
+			$sql = "UPDATE {$table} SET " . join(', ', $fields) . " WHERE id = '{$id}'";
+			
+			file_put_contents('error.log',$sql, FILE_APPEND);  
+			
+			$sth = self::getInstance()->prepare($sql);
+			$sth->execute();
+		}
+		
+		public static function update_array2($table, $array) 
+		{
+			$id = array_shift($array);
+			$fields = array();
+
+			foreach($array as $field => $val) {
+			   $fields[] = "$field = '$val'";
+			}
+
+			$sql = "UPDATE {$table} SET " . join(', ', $fields) . " WHERE id = '$id'";
+
+			$sth = self::getInstance()->prepare($sql);
+			$sth->execute();
+		}
 
 		public static function insert_array($table, $data, $exclude = array()) 
 		{
