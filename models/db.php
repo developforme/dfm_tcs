@@ -44,27 +44,10 @@
 
 			$sql = "UPDATE {$table} SET " . join(', ', $fields) . " WHERE id = '{$id}'";
 			
-			file_put_contents('error.log',$sql, FILE_APPEND);  
-			
 			$sth = self::getInstance()->prepare($sql);
 			$sth->execute();
 		}
 		
-		public static function update_array2($table, $array) 
-		{
-			$id = array_shift($array);
-			$fields = array();
-
-			foreach($array as $field => $val) {
-			   $fields[] = "$field = '$val'";
-			}
-
-			$sql = "UPDATE {$table} SET " . join(', ', $fields) . " WHERE id = '$id'";
-
-			$sth = self::getInstance()->prepare($sql);
-			$sth->execute();
-		}
-
 		public static function insert_array($table, $data, $exclude = array()) 
 		{
 			$fields = $values = array();
