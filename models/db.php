@@ -12,7 +12,7 @@
 			try
 			{
 				// require_once($_SERVER['DOCUMENT_ROOT'] . "/dfm/tcs_project/connection.php")
-				require_once($_SERVER['DOCUMENT_ROOT'] . "/dfm_tcs-master/connection.php");
+				require_once($_SERVER['DOCUMENT_ROOT'] . "/dfm_tcs/connection.php");
 
 
 				if (!isset(self::$instance))

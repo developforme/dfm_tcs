@@ -12,7 +12,7 @@ class dfm {
 		$this->build = "0.1.0";
 		$this->release_date = "";
 		// $this->app_dir = $_SERVER['DOCUMENT_ROOT'] . "/dfm/tcs_project/";
-		$this->app_dir = $_SERVER['DOCUMENT_ROOT'] . "/dfm_tcs-master";
+		$this->app_dir = $_SERVER['DOCUMENT_ROOT'] . "/dfm_tcs";
 	}
 
 	// Include model classes

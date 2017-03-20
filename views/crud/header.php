@@ -11,7 +11,7 @@
 	<!-- CRUD INITIALIZER -->
 	<script type="text/javascript">
 		// var url = "http://vps383780.ovh.net/dfm/tcs_project/";
-		var url = "http://localhost/dfm_tcs-master/";
+		var url = "http://localhost/dfm_tcs/";
 	</script>
 	<style type="text/css">
 		.modal-dialog, .modal-content{
