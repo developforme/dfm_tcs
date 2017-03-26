@@ -1,0 +1,26 @@
+@mixin clearfix() {
+    &:after,
+    &:before {
+        content: " ";
+        display: table;
+    }
+
+    &:after {
+        clear: both;
+    }
+}
+
+@mixin bg-cover() {
+    background-size: cover;
+    background-position: center center;
+    -ms-behavior: url('/backgroundsize.min.htc');
+}
+
+@mixin btn() {
+    background: none;
+    border: none;
+    font-size: 1em;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.5s ease;
+}

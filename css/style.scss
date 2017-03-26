@@ -1,0 +1,15 @@
+// Modules
+@import "modules/variables";
+@import "modules/mixins";
+@import "modules/grid";
+// Vendor
+@import "vendor/reset";
+// @import "vendor/fontawesome";
+// Partials
+@import "partials/generic";
+@import "partials/footer";
+@import "partials/header";
+@import "partials/animations";
+
+//  PAGES
+@import "partials/home";

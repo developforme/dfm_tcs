@@ -1,0 +1,108 @@
+#header {
+    padding: 15px 0;
+    width: 100%;
+    background-color: $darkblue;
+    border-bottom: 3px solid #293241;
+    margin-bottom: 30px;
+
+    .logo {
+        float: left;
+        width: 141px;
+        height: 60px;
+        @include make-breakpoint(sm){
+            height: 60px;
+        };
+        background-image: url('../img/tcs_logo.png');
+        background-image: url('../img/tcs_logo.svg'), none;
+        background-repeat: no-repeat;
+    }
+    // .menu {
+    //     float: right;
+    //     margin-top: 20px;
+    //
+    //     a {
+    //         color: $lightblue;
+    //         padding-left: 20px;
+    //         background-color: $darkblue;
+    //         transition: color 0.3s ease;
+    //         text-decoration: none;
+    //         font-weight: 600;
+    //         display: block;
+    //
+    //         &:hover {
+    //             color: $blue;
+    //         }
+    //     }
+    // }
+}
+
+.overlay {
+    z-index: 10;
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    right: 0;
+    background-color: darken($darkblue, 10%);
+    transition: 0.5s;
+    overflow: hidden;
+
+    a {
+        padding: 0 20px 20px 0;
+        font-size: 26px;
+        @include make-breakpoint(sm) {
+            font-size: 30px;
+        };
+        color: $lightblue;
+        display: block;
+        text-decoration: none;
+        text-align: right;
+        transition: color 0.4s ease, letter-spacing 0.4s ease;
+        text-transform: uppercase;
+        font-weight: 600;
+
+        &:focus,
+        &:hover {
+            color: $blue;
+            letter-spacing: 2px;
+        }
+    }
+
+    .closebtn {
+        position: absolute;
+        font-size: 50px;
+        top: 20px;
+        right: 0;
+        @include make-breakpoint(sm) {
+            font-size: 60px;
+        };
+    }
+}
+
+.menu-content {
+    position: relative;
+    top: 20%;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+}
+
+#menu-icon {
+    float: right;
+    cursor: pointer;
+    margin-top: 13px;
+
+    &:hover .bar {
+        background-color: $blue;
+        width: 30px;
+    }
+
+    .bar {
+        width: 25px;
+        height: 3px;
+        background-color: $grey;
+        margin: 6px 0;
+        transition: background-color 0.4s ease;
+        transition: width 0.2s linear;
+    }
+}

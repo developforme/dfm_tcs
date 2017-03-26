@@ -1,0 +1,59 @@
+#home {
+    .login-wrap {
+        background-color: $darkblue;
+        @include make-xs-column(10);
+        @include make-xs-column-offset(1);
+        @include make-sm-column(8);
+        @include make-sm-column-offset(2);
+        @include make-md-column(6);
+        @include make-md-column-offset(3);
+        padding: 50px 15px;
+        @include make-breakpoint(md) {
+            padding: 50px;
+        };
+
+        input {
+            width: 100%;
+            display: block;
+            padding: 14px;
+            margin: 10px 0 30px;
+            border: none;
+            background: none;
+            border-bottom: 2px solid $grey;
+        }
+
+        button {
+            @include btn();
+            width: 100%;
+            color: black;
+            padding: 14px;
+            text-transform: uppercase;
+            // background-color: $grey;
+            border: 2px solid $grey;
+            font-size: 14px;
+            color: $grey;
+
+            &:hover {
+                background-color: $blue;
+                border: 2px solid $blue;
+                color: white;
+            }
+        }
+
+        hr {
+            color: $grey;
+            background-color: $grey;
+            border-color: $grey;
+            margin: 40px 0 30px;
+        }
+
+        .forgot-pass {
+            font-size: 12px;
+            color: $grey;
+
+            &:hover {
+                color: $blue;
+            }
+        }
+    }
+}
