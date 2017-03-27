@@ -42,7 +42,7 @@ $('document').ready(function(){
 			{
 				if(response==1)
 				{
-					$("#btn-login").html('<img src="img/icons/btn-ajax-loader.gif" /> &nbsp; Signing In ...');
+					$("#btn-login").html('<img src="img/icons/btn-ajax-loader-2.gif" /> &nbsp; Signing In ...');
 					setTimeout(' window.location.href = "index.php?controller=logged&action=index"; ',4000);
 				}
 				else

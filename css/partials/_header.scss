@@ -8,7 +8,7 @@
     .logo {
         float: left;
         width: 141px;
-        height: 60px;
+        height: 50px;
         @include make-breakpoint(sm){
             height: 60px;
         };
@@ -90,7 +90,10 @@
 #menu-icon {
     float: right;
     cursor: pointer;
-    margin-top: 13px;
+    margin-top: 10px;
+    @include make-breakpoint(sm){
+        margin-top: 13px;
+    };
 
     &:hover .bar {
         background-color: $blue;
