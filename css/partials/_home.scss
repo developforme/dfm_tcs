@@ -19,7 +19,22 @@
             margin: 10px 0 30px;
             border: none;
             background: none;
-            border-bottom: 2px solid $grey;
+            border-bottom: 2px solid $blue;
+            color: white;
+        }
+
+        input, select, textarea{
+            color: $grey;
+        }
+
+        textarea:focus, input:focus {
+            color: $blue;
+        }
+
+        label.error{
+            font-size: 12px;
+            color: $purple;
+            margin: -10px 0 25px;
         }
 
         button {
@@ -29,7 +44,7 @@
             padding: 14px;
             text-transform: uppercase;
             // background-color: $grey;
-            border: 2px solid $grey;
+            border: 2px solid $blue;
             font-size: 14px;
             color: $grey;
 
