@@ -63,7 +63,8 @@ $( document ).ready(function() {
 
 			rows = rows + '<td data-id="'+value.id+'">';
 			rows = rows + '<button data-toggle="modal" data-target="#edit-item" class="btn btn-primary edit-item">Edit</button> ';
-			rows = rows + '<button class="btn btn-danger remove-item">Delete</button>';
+			rows = rows + '<button class="btn btn-danger remove-item">Delete</button> ';
+			rows = rows + '<button onclick="window.location.href=\'?controller='+controller+'&action=show&id='+value.id+'\'"  class="btn crud-submit btn-success">Details</button>';
 			rows = rows + '</td>';
 			rows = rows + '</tr>';
 		});
@@ -97,22 +98,20 @@ $( document ).ready(function() {
 		
 		var form_action = $("#create-item").find("form").attr("action");
 		
+		var first_name = $("#create-item").find("input[name='first_name']").val();
 		var username = $("#create-item").find("input[name='username']").val();
-		var fullname = $("#create-item").find("input[name='fullname']").val();
 		var email = $("#create-item").find("input[name='email']").val();
-		var password = $("#create-item").find("input[name='password']").val();
 
-		if(username != '' && fullname != '' && email != '' && password != ''){
+		if(username != '' && first_name != '' && email != ''){
 			$.ajax({
 				dataType: 'json',
 				type:'POST',
 				url: url + form_action,
-				data:{username:username, fullname:fullname, email:email, password:password}
+				data:{first_name:first_name, username:username, email:email}
 			}).done(function(data){
+				first_name;
 				username;
-				fullname;
 				email;
-				password;
 				getPageData();
 				$(".modal").modal('hide');
 				toastr.success('Item Created Successfully.', 'Success Alert', {timeOut: 5000});
@@ -129,12 +128,12 @@ $( document ).ready(function() {
 
 		var id = $(this).parent("td").data('id');
 
-		var username = $(this).parent("td").prev("td").prev("td").prev("td").text();
-		var fullname = $(this).parent("td").prev("td").prev("td").text();
+		var first_name = $(this).parent("td").prev("td").prev("td").prev("td").text();
+		var username = $(this).parent("td").prev("td").prev("td").text();
 		var email =    $(this).parent("td").prev("td").text();
 
+		$("#edit-item").find("input[name='first_name']").val(first_name);
 		$("#edit-item").find("input[name='username']").val(username);
-		$("#edit-item").find("input[name='fullname']").val(fullname);
 		$("#edit-item").find("input[name='email']").val(email);
 		$("#edit-item").find(".edit-id").val(id);
 
@@ -147,18 +146,18 @@ $( document ).ready(function() {
 		e.preventDefault();
 		var form_action = $("#edit-item").find("form").attr("action");
 		
+		var first_name = $("#edit-item").find("input[name='first_name']").val();
 		var username = $("#edit-item").find("input[name='username']").val();
-		var fullname = $("#edit-item").find("input[name='fullname']").val();
 		var email = $("#edit-item").find("input[name='email']").val();
 		
 		var id = $("#edit-item").find(".edit-id").val();
 
-		if(username != '' && fullname != '' && email != ''){
+		if(username != '' && first_name != '' && email != ''){
 			$.ajax({
 				dataType: 'json',
 				type:'POST',
 				url: url + form_action,
-				data:{username:username, fullname:fullname, email:email, id:id}
+				data:{first_name:first_name, username:username, email:email, id:id}
 			}).done(function(data){
 				getPageData();
 				$(".modal").modal('hide');

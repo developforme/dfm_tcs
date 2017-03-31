@@ -20,11 +20,11 @@
 				if(isset($dfm_user) && isset($dfm_pwd))
 				{
 					$db = db::getInstance();
-					$req = $db->prepare("SELECT id FROM users WHERE id = '{$dfm_user}' AND password = '{$dfm_pwd}'");
+					$req = $db->prepare("SELECT id_users FROM ea_user_settings WHERE id_users = '{$dfm_user}' AND password = '{$dfm_pwd}'");
 					$req->execute(array('id' => $dfm_user));
 					
 					while($user = $req->fetch()) {
-						return $user['id'];
+						return $user['id_users'];
 					}
 				}
 			}
@@ -34,7 +34,7 @@
 		{
 			$id = intval($id);
 			$db = db::getInstance();
-			$req = $db->prepare("SELECT * FROM users WHERE id = :id");
+			$req = $db->prepare("SELECT u.id, us.salt, us.username, u.first_name, u.last_name, u.email, u.join_date, u.last_login FROM ea_users u, ea_user_settings us WHERE u.id = us.id_users AND u.id_roles = 1 AND id = :id");
 			$req->execute(array('id' => $id));
 			$user = $req->fetch();
 
@@ -44,8 +44,14 @@
 			return $user;
 		}
 		
+		public function updateReadData($data)
+		{
+			return $data;
+		}
+		
 		public function updateCreatePOST($post)
 		{
+			
 			
 			$post["password"] = md5($post['password']);
 			$post["join_date"] = time();
@@ -53,8 +59,12 @@
 			return $post;
 		}
 		
-		public function updateEditPost($post)
+		public function updateEditPost($id, $post)
 		{
+			
+			$user = self::find($id);
+			$post["password"] = dfm::hash_password($user->salt, $post['password']);
+			
 			return $post;
 		}
 	}

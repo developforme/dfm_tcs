@@ -54,7 +54,7 @@
 	$core_controllers = array('pages'  => ['home', 'error'],
 							  'login'  => ['index'],
 							  'logged' => ['index'],
-							  'user'   => ['index', 'show']);
+							  'user'   => ['index', 'show', 'edit']);
 	// Project Controllers
 	$project_controllers =  array('client' => ['index', 'show'],
 								  'site'   => ['index', 'show']);

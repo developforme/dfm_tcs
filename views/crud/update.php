@@ -18,7 +18,30 @@
 						?>
 								<div class="form-group" style="display: <?php echo $show; ?>">
 									<label class="control-label" for="<?php echo $edit_attributes[$i]["name"]; ?>"><?php echo $edit_attributes[$i]["text"]; ?></label>
+									
+									
+									<?php 
+									
+										switch( $edit_attributes[$i]["form"] )
+										{
+											
+											case "input":
+												echo "<input type='text' name='{$edit_attributes[$i]['name']}' class='form-control' data-error='{$edit_attributes[$i]['data-error']}' {$edit_attributes[$i]['required']} />";
+												break;
+												
+											case "select":
+											
+												echo "<select class='form-control' data-error='{$edit_attributes[$i]['data-error']}' {$edit_attributes[$i]['required']} name='{$edit_attributes[$i]['name']}' />
+													    {$edit_attributes[$i]['options']}
+													  </select>";
+												break;
+												
+											
+										}	
+									?>
+									<!--
 									<input type="text" name="<?php echo $edit_attributes[$i]["name"]; ?>" class="form-control" data-error="<?php echo $edit_attributes[$i]["data-error"]; ?>" <?php echo $edit_attributes[$i]["required"]; ?> />
+									-->
 									<div class="help-block with-errors"></div>
 								</div>
 						<?php } ?>

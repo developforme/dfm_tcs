@@ -27,7 +27,7 @@
 		$controller = 'pages';
 		$action     = 'home';
 	}
-
+	
 	// UI Layout 
 	require_once('views/layout.php');
 ?>

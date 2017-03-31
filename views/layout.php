@@ -60,7 +60,9 @@
 			</div>
 		</header>
 
-		<?php require_once('routes.php'); ?>
+		<div class="container">
+			<?php require_once('routes.php'); ?>
+		</div>
 
 		<footer id="footer">
 			<div class="container">

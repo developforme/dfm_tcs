@@ -25,21 +25,21 @@
 	{
 		case "user":
 		
-			$table = "users";
+			$table = "ea_users u, ea_user_settings us";
 			$controller = new UserController();
 			$attributes = $controller->table_attributes();	
 			
 		break;
 		case "client":
 		
-			$table = "clients";
+			$table = "ea_services";
 			$controller = new ClientController();
 			$attributes = $controller->table_attributes();
 		
 		break;
 		case "site":
 		
-			$table = "sites";
+			$table = "ea_users";
 			$controller = new SiteController();
 			$attributes = $controller->table_attributes();
 			
@@ -58,7 +58,11 @@
 	// Route CRUD
 	switch($_GET['action']) {
 		case 'index':
-			print $crud->getData();	
+		
+			// Manipulate DATA with application model
+			$newdata = $model->updateReadData( $crud->getData() );
+		
+			print json_encode($newdata);	
 			break;
 			
 		case 'create':
@@ -67,7 +71,15 @@
 			// Manipulate POST with application model
 			$newpost = $model->updateCreatePost($post);
 			
+			// Send to AJAX script
 			print $crud->createData($newpost);		
+			
+			// Manipulate AFTER-POST with application model (IF EXISTS)
+			if (method_exists($model, 'afterCreatePost'))
+			{
+				$model->afterCreatePost($newpost);
+			}
+			
 			break;
 			
 		case 'delete':
@@ -81,8 +93,7 @@
 			
 
 			// Manipulate POST with application model
-			$newpost = $model->updateEditPost($post);
-			
+			$newpost = $model->updateEditPost($id, $post);
 			
 			print $crud->updateData($id, $newpost);				
 			break;

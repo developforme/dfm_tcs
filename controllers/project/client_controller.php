@@ -54,27 +54,31 @@
 			$crud_attributes["update_attributes"] = array
 			  (
 			  array(
+				"form"       => "input",
+				"type"       => "text", 
 			    "name"       => "name", 
 				"text"       => "Name",
-				"type"       => "input", 
 				"data-error" => "Please enter the client's name.", 
 				"required"   => "required"),
 			  array(
+				"form"       => "input",
+				"type"       => "textarea",
 				"name"       => "address", 
 				"text"       => "Address",
-				"type"       => "textarea", 
 				"data-error" => "Please enter the address.", 
 				"required"   => "required"),
 			  array(
+				"form"       => "input",
+				"type"       => "text", 
 				"name"	     => "email", 
 				"text"       => "Email",
-				"type" 	     => "input", 
 				"data-error" => "Please enter an email address", 
 				"required"   => "required"),
 			  array(
-				"name"	     => "telephone", 
-				"text"       => "Contact",
+				"form"       => "input",
 				"type" 	     => "text", 
+				"name"	     => "telephone", 
+				"text"       => "Telephone",
 				"data-error" => "Please enter the telephone number", 
 				"required"   => "required")
 			  );
@@ -88,27 +92,31 @@
 			$crud_attributes["create_attributes"] = array
 			  (
 			  array(
+				"form"       => "input",
+				"type"       => "text", 
 			    "name"       => "name", 
 				"text"       => "Name",
-				"type"       => "input", 
 				"data-error" => "Please enter the client's name.", 
 				"required"   => "required"),
 			  array(
+				"form"       => "input",
+				"type"       => "textarea", 
 				"name"       => "address", 
 				"text"       => "Address",
-				"type"       => "textarea", 
 				"data-error" => "Please enter the address.", 
 				"required"   => "required"),
 			  array(
+				"form"       => "input",
+				"type"       => "text", 
 				"name"	     => "email", 
 				"text"       => "Email",
-				"type" 	     => "input", 
 				"data-error" => "Please enter an email address", 
 				"required"   => "required"),
 			  array(
+				"form"       => "input",
+				"type" 	     => "text", 
 				"name"	     => "telephone", 
 				"text"       => "Telephone",
-				"type" 	     => "text", 
 				"data-error" => "Please enter the telephone number", 
 				"required"   => "required")
 			  );	

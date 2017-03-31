@@ -41,10 +41,14 @@
 			 * @Value = UI text
 			*/
 			$crud_attributes["index"] = [
-				"username" => "Username",
-				"fullname" => "Full Name",
-				"email"    => "Email"
+				"CONCAT(
+				  u.first_name, ' ', u.last_name) 
+				  AS name"    => "Name",
+				"us.username" => "Username",
+				"u.email"     => "Email"
 			];
+			
+			$crud_attributes["where"] = "u.id = us.id_users AND id_roles = 1";
 			
 			/* UPDATE ATTRIBUTES
 			 * Viewed when editing an existing row
@@ -54,23 +58,26 @@
 			$crud_attributes["update_attributes"] = array
 			  (
 			  array(
+				"form"       => "input",
+				"type"       => "text", 
 			    "name"       => "username", 
 				"text"       => "Username",
-				"type"       => "input", 
 				"data-error" => "Please enter the username.", 
 				"required"   => "required"),
 			  array(
+				"form"       => "input",
+				"type"       => "text", 
 				"name"       => "fullname", 
 				"text"       => "Full Name",
-				"type"       => "input", 
 				"data-error" => "Please enter the full name.", 
 				"required"   => "required"),
 			  array(
+				"form"       => "input",
+				"type"       => "text", 
 				"name"	     => "email", 
 				"text"       => "Email",
-				"type" 	     => "input", 
 				"data-error" => "Please enter an email address", 
-				"required"   => "required"),
+				"required"   => "required")
 			  );
 			
 			/* CREATE ATTRIBUTES
@@ -81,38 +88,95 @@
 			$crud_attributes["create_attributes"] = array
 			  (
 			  array(
+				"form"       => "input",
+				"type"       => "text", 
 			    "name"       => "username", 
 				"text"       => "Username",
-				"type"       => "input", 
 				"data-error" => "Please enter the username.", 
 				"required"   => "required"),
 			  array(
-				"name"       => "fullname", 
+				"form"       => "input",
+				"type"       => "text", 
+				"name"       => "first_name", 
 				"text"       => "Full Name",
-				"type"       => "input", 
 				"data-error" => "Please enter the full name.", 
 				"required"   => "required"),
 			  array(
+				"form"       => "input",
+				"type"       => "text", 
 				"name"	     => "email", 
 				"text"       => "Email",
-				"type" 	     => "input", 
 				"data-error" => "Please enter an email address", 
 				"required"   => "required"),
 			  array(
+				"form"       => "input",
+				"type"       => "password", 
 				"name"	     => "password", 
 				"text"       => "Password",
-				"type" 	     => "password", 
 				"data-error" => "Please enter the user password", 
 				"required"   => "required"),
 			  array(
+				"form"       => "input",
+				"type"       => "hidden", 
 				"name"	     => "join_date", 
 				"text"       => "",
-				"type" 	     => "hidden", 
 				"data-error" => "", 
 				"required"   => "")
 			  );
 						
 			return $crud_attributes;
 		}
+		
+		public function show() 
+		{
+			
+			if (!isset($_GET['id'])) {
+				return call('pages', 'error');
+			}
+
+			$user = User::find($_GET['id']);
+
+			require_once('views/user/show.php');
+			
+		}
+		
+		public function edit() 
+		{
+			if (!isset($_GET['id'])) {
+				return call('pages', 'error');
+			}
+
+			$user = User::find($_GET['id']);
+
+			if(isset($_POST['update_user']))
+			{
+				
+				$password = dfm::hash_password($user['salt'], trim($_POST['password']));	
+				
+				$user_profile = 
+					array(
+					  "first_name" => $_POST['first_name'],
+					  "last_name"  => $_POST['last_name'],
+					  "email"      => $_POST['email']
+					  );
+				
+				$user_settings =
+					array(
+					  "username" => $_POST['username'],
+					  "password" => $password,
+					  );
+				
+				db::update_array($user['id'], "ea_users", $user_profile);
+				db::update_array($user['id'], "ea_user_settings", $user_settings, array(), "id_users");
+				
+				echo "Success";
+			}
+			
+			require_once('views/user/edit.php');
+			
+			
+			
+		}
+		
 	}
 ?>

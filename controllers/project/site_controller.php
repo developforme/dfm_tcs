@@ -40,11 +40,14 @@
 			 * @Value = UI text
 			*/
 			$crud_attributes["index"] = [
-				"name"      => "Name",
-				"address"   => "Address",
-				"email"     => "Email",
-				"telephone" => "Telephone"
+				"first_name"   => "Name",
+				"address"      => "Address",
+				"email"        => "Email",
+				"phone_number" => "Phone Number",
+				"clientID"     => "Client"
 			];
+			
+			$crud_attributes["where"] = "id_roles = 2";
 			
 			/* UPDATE ATTRIBUTES
 			 * Viewed when editing an existing row
@@ -54,32 +57,43 @@
 			$crud_attributes["update_attributes"] = array
 			  (
 			  array(
-			    "name"       => "name", 
+			    "form"       => "input",
+				"type"       => "text", 
+			    "name"       => "first_name", 
 				"text"       => "Name",
-				"type"       => "input", 
 				"data-error" => "Please enter the site's name.", 
 				"required"   => "required"),
 			  array(
+				"form"       => "input",
+				"type"       => "textarea", 
 				"name"       => "address", 
 				"text"       => "Address",
-				"type"       => "textarea", 
 				"data-error" => "Please enter the address.", 
 				"required"   => "required"),
 			  array(
+				"form"       => "input",
+				"type" 	     => "text", 
 				"name"	     => "email", 
 				"text"       => "Email",
-				"type" 	     => "input", 
 				"data-error" => "Please enter an email address", 
 				"required"   => "required"),
 			  array(
-				"name"	     => "telephone", 
-				"text"       => "Contact",
+				"form"       => "input",
 				"type" 	     => "text", 
+				"name"	     => "phone_number", 
+				"text"       => "Phone Number",
 				"data-error" => "Please enter the telephone number", 
+				"required"   => "required"),
+			  array(
+				"form"       => "select",
+				"type" 	     => "", 
+				"name"	     => "clientID",
+				"text"       => "Client",				
+				"options"    => implode("", Site::getClients("Select Client ID")),
+				"data-error" => "Please select the client's ID", 
 				"required"   => "required")
 			  );
 			  
-
 			/* CREATE ATTRIBUTES
 			 * Viewed when creating a new row
 			 * @Key = field name
@@ -88,30 +102,70 @@
 			$crud_attributes["create_attributes"] = array
 			  (
 			  array(
-			    "name"       => "name", 
+			    "form"       => "input",
+				"type"       => "text", 
+			    "name"       => "first_name", 
 				"text"       => "Name",
-				"type"       => "input", 
 				"data-error" => "Please enter the site's name.", 
 				"required"   => "required"),
 			  array(
+				"form"       => "input",
+				"type"       => "textarea", 
 				"name"       => "address", 
 				"text"       => "Address",
-				"type"       => "textarea", 
 				"data-error" => "Please enter the address.", 
 				"required"   => "required"),
 			  array(
+				"form"       => "input",
+				"type" 	     => "text", 
 				"name"	     => "email", 
 				"text"       => "Email",
-				"type" 	     => "input", 
 				"data-error" => "Please enter an email address", 
 				"required"   => "required"),
 			  array(
-				"name"	     => "telephone", 
-				"text"       => "Telephone",
+				"form"       => "input",
 				"type" 	     => "text", 
+				"name"	     => "phone_number", 
+				"text"       => "Phone Number",
 				"data-error" => "Please enter the telephone number", 
-				"required"   => "required")
-			  );	
+				"required"   => "required"),
+			  array(
+				"form"       => "select",
+				"type" 	     => "", 
+				"name"	     => "clientID",
+				"text"       => "Client",				
+				"options"    => implode("", Site::getClients("Select Client ID")),
+				"data-error" => "Please select the client's ID", 
+				"required"   => "required"),
+			  array(
+			    "form"       => "input",
+				"type"       => "hidden", 
+				"name"	     => "last_name", 
+				"text"       => "",
+				"data-error" => "", 
+				"required"   => ""),
+			  array(
+			    "form"       => "input",
+				"type"       => "hidden", 
+				"name"	     => "id", 
+				"text"       => "",
+				"data-error" => "", 
+				"required"   => ""),
+			  array(
+				"form"       => "input",
+				"type"       => "hidden", 
+				"name"	     => "id_roles", 
+				"text"       => "",
+				"data-error" => "", 
+				"required"   => ""),
+			  array(
+				"form"       => "input",
+				"type"       => "hidden", 
+				"name"	     => "join_date", 
+				"text"       => "",
+				"data-error" => "", 
+				"required"   => "")
+			  );
 			
 
 			return $crud_attributes;

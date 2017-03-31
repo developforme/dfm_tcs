@@ -98,28 +98,30 @@ $( document ).ready(function() {
 		
 		var form_action = $("#create-item").find("form").attr("action");
 		
-		var name = $("#create-item").find("input[name='name']").val();
+		var first_name = $("#create-item").find("input[name='first_name']").val();
 		var address = $("#create-item").find("input[name='address']").val();
 		var email = $("#create-item").find("input[name='email']").val();
-		var telephone = $("#create-item").find("input[name='telephone']").val();
+		var phone_number = $("#create-item").find("input[name='phone_number']").val();
+		var clientID = $("#create-item").find("select[name='clientID']").val();
 
-		if(name != '' && address != '' && email != '' && telephone != ''){
+		if(first_name != '' && address != '' && email != '' && phone_number != '' && clientID != ''){
 			$.ajax({
 				dataType: 'json',
 				type:'POST',
 				url: url + form_action,
-				data:{name:name, address:address, email:email, telephone:telephone}
+				data:{first_name:first_name, address:address, email:email, phone_number:phone_number, clientID:clientID}
 			}).done(function(data){
-				name;
+				first_name;
 				address;
 				email;
-				telephone;
+				phone_number;
+				clientID;
 				getPageData();
 				$(".modal").modal('hide');
 				toastr.success('Item Created Successfully.', 'Success Alert', {timeOut: 5000});
 			});
 		}else{
-			alert('You are missing full name or email.')
+			alert('You are missing name or email.')
 		}
 
 	});
@@ -130,15 +132,17 @@ $( document ).ready(function() {
 
 		var id = $(this).parent("td").data('id');
 
-		var name = $(this).parent("td").prev("td").prev("td").prev("td").prev("td").text();
-		var address = $(this).parent("td").prev("td").prev("td").prev("td").text();
-		var email =    $(this).parent("td").prev("td").prev("td").text();
-		var telephone = $(this).parent("td").prev("td").text();
+		var first_name = $(this).parent("td").prev("td").prev("td").prev("td").prev("td").prev("td").text();
+		var address = $(this).parent("td").prev("td").prev("td").prev("td").prev("td").text();
+		var email =    $(this).parent("td").prev("td").prev("td").prev("td").text();
+		var phone_number = $(this).parent("td").prev("td").prev("td").text();
+		var clientID = $(this).parent("td").prev("td").text();
 		
-		$("#edit-item").find("input[name='name']").val(name);
+		$("#edit-item").find("input[name='first_name']").val(first_name);
 		$("#edit-item").find("input[name='address']").val(address);
 		$("#edit-item").find("input[name='email']").val(email);
-		$("#edit-item").find("input[name='telephone']").val(telephone);
+		$("#edit-item").find("input[name='phone_number']").val(phone_number);
+		$("#edit-item").find("select[name='clientID']").val(clientID);
 		$("#edit-item").find(".edit-id").val(id);
 
 	});
@@ -150,26 +154,27 @@ $( document ).ready(function() {
 		e.preventDefault();
 		var form_action = $("#edit-item").find("form").attr("action");
 		
-		var name = $("#edit-item").find("input[name='name']").val();
+		var first_name = $("#edit-item").find("input[name='first_name']").val();
 		var address = $("#edit-item").find("input[name='address']").val();
 		var email = $("#edit-item").find("input[name='email']").val();
-		var telephone = $("#edit-item").find("input[name='telephone']").val();
+		var phone_number = $("#edit-item").find("input[name='phone_number']").val();
+		var clientID = $("#edit-item").find("select[name='clientID']").val();
 		
 		var id = $("#edit-item").find(".edit-id").val();
 
-		if(name != '' && address != '' && email != '' && telephone != ''){
+		if(first_name != '' && address != '' && email != '' && phone_number != '' && clientID != ''){
 			$.ajax({
 				dataType: 'json',
 				type:'POST',
 				url: url + form_action,
-				data:{name:name, address:address, email:email, telephone:telephone, id:id}
+				data:{first_name:first_name, address:address, email:email, phone_number:phone_number, clientID:clientID, id:id}
 			}).done(function(data){
 				getPageData();
 				$(".modal").modal('hide');
 				toastr.success('Item Updated Successfully.', 'Success Alert', {timeOut: 5000});
 			});
 		}else{
-			alert('You are missing full name or email.')
+			alert('You are missing name or email.')
 		}
 
 	});

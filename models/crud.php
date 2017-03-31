@@ -21,16 +21,18 @@
 			if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; };
 			$start_from = ($page-1) * $this->num_rec_per_page;
 
-			$req = $this->dbh->prepare("SELECT id, " . implode(", ", array_keys( $this->attributes["index"] ) ) . " FROM {$this->table} ORDER BY id DESC LIMIT {$start_from}, {$this->num_rec_per_page}");
+			$where = empty($this->attributes["where"]) ? "" : "WHERE " .$this->attributes["where"];
+			
+			$req = $this->dbh->prepare("SELECT id, " . implode(", ", array_keys( $this->attributes["index"] ) ) . " FROM {$this->table} {$where} ORDER BY id DESC LIMIT {$start_from}, {$this->num_rec_per_page}");
 			$req->execute();
 			
-			$data['data'] = $req->fetchAll(PDO::FETCH_ASSOC);
+			$data['data'] = $req->fetchAll(PDO::FETCH_ASSOC);		
 			$data['total'] = db::num_rows("SELECT * FROM {$this->table}");
 
-			return json_encode($data);		
+			return $data;	
 		}
 
-		public function createData($post, $user = null)
+		public function createData($post)
 		{		
 			// Get the keys (field names from controller's table_attributes)
 			$keys = Array();
@@ -60,7 +62,7 @@
 			return json_encode([$id]);
 		}
 		
-		public function updateData($id, $post, $user = null)
+		public function updateData($id, $post)
 		{
 			// Get the keys (field names from controller's table_attributes)
 			$keys = Array();
