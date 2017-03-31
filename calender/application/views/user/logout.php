@@ -1,0 +1,1 @@
+<?php header('Location: ' . 'http://vps383780.ovh.net/dfm/tcs_project/logout.php');?>
