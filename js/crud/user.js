@@ -62,9 +62,9 @@ $( document ).ready(function() {
 			});
 
 			rows = rows + '<td data-id="'+value.id+'">';
+			rows = rows + '<button onclick="window.location.href=\'?controller='+controller+'&action=show&id='+value.id+'\'"  class="btn crud-submit btn-success">Details</button> ';
 			rows = rows + '<button data-toggle="modal" data-target="#edit-item" class="btn btn-primary edit-item">Edit</button> ';
-			rows = rows + '<button class="btn btn-danger remove-item">Delete</button> ';
-			rows = rows + '<button onclick="window.location.href=\'?controller='+controller+'&action=show&id='+value.id+'\'"  class="btn crud-submit btn-success">Details</button>';
+			rows = rows + '<button class="btn btn-danger remove-item">Delete</button>';
 			rows = rows + '</td>';
 			rows = rows + '</tr>';
 		});
@@ -101,23 +101,25 @@ $( document ).ready(function() {
 		var first_name = $("#create-item").find("input[name='first_name']").val();
 		var username = $("#create-item").find("input[name='username']").val();
 		var email = $("#create-item").find("input[name='email']").val();
+		var password = $("#create-item").find("input[name='password']").val();
 
-		if(username != '' && first_name != '' && email != ''){
+		if(username != '' && first_name != '' && email != '' && password != ''){
 			$.ajax({
 				dataType: 'json',
 				type:'POST',
 				url: url + form_action,
-				data:{first_name:first_name, username:username, email:email}
+				data:{first_name:first_name, username:username, email:email, password:password}
 			}).done(function(data){
 				first_name;
 				username;
 				email;
+				password;
 				getPageData();
 				$(".modal").modal('hide');
 				toastr.success('Item Created Successfully.', 'Success Alert', {timeOut: 5000});
 			});
 		}else{
-			alert('You are missing full name or email.')
+			alert('You are missing full name, username, email or password.')
 		}
 
 	});

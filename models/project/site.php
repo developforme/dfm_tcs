@@ -59,14 +59,13 @@
 				  "id_services" => $post['clientID']
 			);
 			
-			$user_settings =
-				array(
-				  "id_users"     => $post['id'],
-				  "username"     => $post['first_name'],
-				  "password"     => '344df2034a7bb6f81c259ae704fdcb87335b7d212dd4e3d75b199a2abab714ce',
-				  "salt"         => '9772e21762c7962dde6cb75d6638d54e31a13e1ebdb28d869d928e39886c73ff',
-				  "working_plan" => '{"monday":{"start":"09:00","end":"18:00","breaks":[{"start":"11:20","end":"11:30"},{"start":"14:30","end":"15:00"}]},"tuesday":{"start":"09:00","end":"18:00","breaks":[{"start":"11:20","end":"11:30"},{"start":"14:30","end":"15:00"}]},"wednesday":{"start":"09:00","end":"18:00","breaks":[{"start":"11:20","end":"11:30"},{"start":"14:30","end":"15:00"}]},"thursday":{"start":"09:00","end":"18:00","breaks":[{"start":"11:20","end":"11:30"},{"start":"14:30","end":"15:00"}]},"friday":{"start":"09:00","end":"18:00","breaks":[{"start":"11:20","end":"11:30"},{"start":"14:30","end":"15:00"}]},"saturday":{"start":"09:00","end":"18:00","breaks":[{"start":"11:20","end":"11:30"},{"start":"14:30","end":"15:00"}]},"sunday":{"start":"09:00","end":"18:00","breaks":[{"start":"11:20","end":"11:30"},{"start":"14:30","end":"15:00"}]}}'
-			); 
+			$user_settings = [
+				"id_users"     => $post['id'],
+				"username"     => $post['first_name'],
+				"password"     => '344df2034a7bb6f81c259ae704fdcb87335b7d212dd4e3d75b199a2abab714ce',
+				"salt"         => '9772e21762c7962dde6cb75d6638d54e31a13e1ebdb28d869d928e39886c73ff',
+				"working_plan" => '{"monday":{"start":"09:00","end":"18:00","breaks":[{"start":"11:20","end":"11:30"},{"start":"14:30","end":"15:00"}]},"tuesday":{"start":"09:00","end":"18:00","breaks":[{"start":"11:20","end":"11:30"},{"start":"14:30","end":"15:00"}]},"wednesday":{"start":"09:00","end":"18:00","breaks":[{"start":"11:20","end":"11:30"},{"start":"14:30","end":"15:00"}]},"thursday":{"start":"09:00","end":"18:00","breaks":[{"start":"11:20","end":"11:30"},{"start":"14:30","end":"15:00"}]},"friday":{"start":"09:00","end":"18:00","breaks":[{"start":"11:20","end":"11:30"},{"start":"14:30","end":"15:00"}]},"saturday":{"start":"09:00","end":"18:00","breaks":[{"start":"11:20","end":"11:30"},{"start":"14:30","end":"15:00"}]},"sunday":{"start":"09:00","end":"18:00","breaks":[{"start":"11:20","end":"11:30"},{"start":"14:30","end":"15:00"}]}}'
+			]; 
 				
 			db::insert_array('ea_services_providers', $clients_site);	
 			db::insert_array('ea_user_settings', $user_settings);	

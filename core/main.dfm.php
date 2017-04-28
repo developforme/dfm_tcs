@@ -89,5 +89,12 @@ class dfm {
 
 		return $hash;
 	}	
+	
+	public static function generate_salt() {
+		$max_length = 100;
+		$salt = hash('sha256', (uniqid(rand(), true)));
+		return substr($salt, 0, $max_length);
+	}	
+	
 }
 ?>

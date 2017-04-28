@@ -44,11 +44,15 @@
         // Page Navigation
         //
         // ---------------------------------------------------------------------
+		
+		$admins_active = (!isset($_GET['view']) OR (isset($_GET['view']) && $_GET['view'] == 'admins')) ? 'active' : '';
+		$sites_active = (isset($_GET['view']) && $_GET['view'] == 'sites') ? 'active' : '';
+		$secretaries_active = (isset($_GET['view']) && $_GET['view'] == 'secretaries') ? 'active' : '';
     ?>
     <ul class="nav nav-tabs">
-        <li role="presentation" class="admins-tab tab active"><a><?php echo $this->lang->line('admins'); ?></a></li>
-        <li role="presentation" class="providers-tab tab"><a><?php echo $this->lang->line('providers'); ?></a></li>
-        <li role="presentation" class="secretaries-tab tab"><a><?php echo $this->lang->line('secretaries'); ?></a></li>
+        <li role="presentation" class="admins-tab tab <?php echo $admins_active; ?>"><a><?php echo $this->lang->line('admins'); ?></a></li>
+        <li role="presentation" class="providers-tab tab <?php echo $sites_active; ?>"><a><?php echo $this->lang->line('providers'); ?></a></li>
+        <li role="presentation" class="secretaries-tab tab<?php echo $secretaries_active; ?>"><a><?php echo $this->lang->line('secretaries'); ?></a></li>
     </ul>
 
     <?php
@@ -58,7 +62,7 @@
         //
         // ---------------------------------------------------------------------
     ?>
-    <div id="admins" class="tab-content">
+    <div id="admins" class="tab-content" style="display:<?php echo $admins_active == 'active' ? 'block' : 'none';?>">
         <div class="row">
             <div id="filter-admins" class="filter-records column col-xs-12 col-sm-5">
                 <form class="input-append">
@@ -207,7 +211,7 @@
         //
         // ---------------------------------------------------------------------
     ?>
-    <div id="providers" class="tab-content" style="display:none;">
+    <div id="providers" class="tab-content" style="display:<?php echo $sites_active == 'active' ? 'block' : 'none';?>">
         <div class="row">
             <div id="filter-providers" class="filter-records column col-xs-12 col-sm-5">
                 <form class="input-append">
@@ -489,7 +493,7 @@
         //
         // ---------------------------------------------------------------------
     ?>
-    <div id="secretaries" class="tab-content" style="display:none;">
+    <div id="secretaries" class="tab-content" style="display:<?php echo $secretaries_active == 'active' ? 'block' : 'none';?>">
         <div class="row">
             <div id="filter-secretaries" class="filter-records column col-xs-12 col-sm-5">
                 <form class="input-append">

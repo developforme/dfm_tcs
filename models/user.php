@@ -49,11 +49,32 @@
 			return $data;
 		}
 		
-		public function updateCreatePOST($post)
+		public function afterCreatePost($post)
 		{
 			
+			$new_salt = dfm::generate_salt();
+			$password = dfm::hash_password($new_salt, $post['password']);	
+
+			$user_settings = [
+				"id_users"     => $post['id'],
+				"username"     => $post['username'],
+				"password"     => $password,
+				"salt"         => $new_salt
+			]; 
+				
+			db::insert_array('ea_user_settings', $user_settings);	
+		}
+		
+		public function updateCreatePOST($post)
+		{
+			$id = db::next_insertID("ea_users");
 			
-			$post["password"] = md5($post['password']);
+			$full_name = explode(" ", $post['first_name']);
+			$post['first_name'] = $full_name[0];
+			$post['last_name'] = isset($full_name[1]) ? $full_name[1] : '';
+			
+			$post['id'] = $id;
+			$post['id_roles'] = 1; // 1 meaning it is 'System User'
 			$post["join_date"] = time();
 			
 			return $post;
@@ -61,6 +82,11 @@
 		
 		public function updateEditPost($id, $post)
 		{
+			
+			
+			$full_name = explode(" ", $post['first_name']);
+			$post['first_name'] = $full_name[0];
+			$post['last_name'] = isset($full_name[1]) ? $full_name[1] : '';
 			
 			$user = self::find($id);
 			$post["password"] = dfm::hash_password($user->salt, $post['password']);

@@ -56,20 +56,27 @@
 			 * @Value = UI text
 			*/
 			$crud_attributes["update_attributes"] = array
-			  (
+			(
+			  array(
+				"form"       => "input",
+				"type"       => "text", 
+				"name"       => "first_name", 
+				"text"       => "Full Name",
+				"data-error" => "Please enter the full name.", 
+				"required"   => "required"),
+			  array(
+				"form"       => "input",
+				"type"       => "hidden", 
+				"name"       => "last_name", 
+				"text"       => "",
+				"data-error" => "", 
+				"required"   => ""),
 			  array(
 				"form"       => "input",
 				"type"       => "text", 
 			    "name"       => "username", 
 				"text"       => "Username",
 				"data-error" => "Please enter the username.", 
-				"required"   => "required"),
-			  array(
-				"form"       => "input",
-				"type"       => "text", 
-				"name"       => "fullname", 
-				"text"       => "Full Name",
-				"data-error" => "Please enter the full name.", 
 				"required"   => "required"),
 			  array(
 				"form"       => "input",
@@ -78,7 +85,7 @@
 				"text"       => "Email",
 				"data-error" => "Please enter an email address", 
 				"required"   => "required")
-			  );
+			);
 			
 			/* CREATE ATTRIBUTES
 			 * Viewed when creating a new row
@@ -86,14 +93,15 @@
 			 * @Value = UI text
 			*/
 			$crud_attributes["create_attributes"] = array
-			  (
+			(
 			  array(
 				"form"       => "input",
 				"type"       => "text", 
 			    "name"       => "username", 
 				"text"       => "Username",
 				"data-error" => "Please enter the username.", 
-				"required"   => "required"),
+				"required"   => "required",
+				"exclude"    => 1),
 			  array(
 				"form"       => "input",
 				"type"       => "text", 
@@ -114,7 +122,29 @@
 				"name"	     => "password", 
 				"text"       => "Password",
 				"data-error" => "Please enter the user password", 
-				"required"   => "required"),
+				"required"   => "required",
+				"exclude"    => 1),
+			  array(
+			    "form"       => "input",
+				"type"       => "hidden", 
+				"name"	     => "last_name", 
+				"text"       => "",
+				"data-error" => "", 
+				"required"   => ""),
+			  array(
+			    "form"       => "input",
+				"type"       => "hidden", 
+				"name"	     => "id", 
+				"text"       => "",
+				"data-error" => "", 
+				"required"   => ""),
+			  array(
+				"form"       => "input",
+				"type"       => "hidden", 
+				"name"	     => "id_roles", 
+				"text"       => "",
+				"data-error" => "", 
+				"required"   => ""),
 			  array(
 				"form"       => "input",
 				"type"       => "hidden", 
@@ -122,8 +152,17 @@
 				"text"       => "",
 				"data-error" => "", 
 				"required"   => "")
-			  );
-						
+			);
+			  
+			// If using different tables for CRUD
+			$crud_attributes["tables"] = [
+				"create" => "ea_users",
+				"read"   => "ea_users u, ea_user_settings us", 
+				"update" => "ea_users", 
+				"delete" => "ea_users"
+			];
+			
+	
 			return $crud_attributes;
 		}
 		

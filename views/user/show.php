@@ -35,7 +35,8 @@
 						<tr>
 							<td></td>
 							<td>
-								<button onclick="window.location.href='?controller=user&action=edit&id=<?php echo $user['id']; ?>'"  class="btn btn-primary edit-item">Edit</button>
+								<button onclick="window.location.href='?controller=user&action=index'"  class="btn crud-submit btn-success">< All Users</button>
+								<button onclick="window.location.href='?controller=user&action=edit&id=<?php echo $user['id']; ?>'"  class="btn btn-primary edit-item">Full Edit</button>
 								<button onclick="window.location.href='?controller=user&action=delete&id=<?php echo $user['id']; ?>'"  class="btn btn-danger remove-item">Delete</button>
 							</td>
 						</tr>

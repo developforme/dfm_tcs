@@ -47,6 +47,7 @@
 			
 	}
 	
+	$table = array_key_exists('tables', $attributes) ? $attributes['tables'] : $table;
 	$crud = new crud($controller_name, $table, $attributes);
 	$model = new $controller_name;
 
@@ -91,7 +92,6 @@
 			$id  = $_POST["id"];
 			$post = $_POST;
 			
-
 			// Manipulate POST with application model
 			$newpost = $model->updateEditPost($id, $post);
 			
